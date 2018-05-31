@@ -152,17 +152,18 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 #' @param data The dataset to visualize. Each row is an observation.
 #' @param cl The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}. If specified, different classes would be visualized with different colors.
 #' @param color The colors for different classes. If not specified, \code{rainbow} is used.
-#' @param axis If true, Cartesian axes would be plotted.
+#' @param colorblind Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.
+#' @param axis Logical.If true, Cartesian axes would be plotted.
 #' @param coord.labels The labels for components of the dataset.
 #' @param coord.font The font for labels of components.
 #' @param coord.cex The size of the labels of components.
 #' @param class.labels The labels for different classes in the dataset.
 #' @param class.labels.locations Locations to put labels for each class. If not specified, an optimal location for each class would be calculated.
-#' @param opt.anchor.order Bool type variabe. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.
+#' @param opt.anchor.order Logical. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], opt.anchor.order = TRUE)
 #' @export
-radialvis3d <- function(data, cl = NULL, color = NULL, axis = FALSE, coord.labels = colnames(data), coord.font = 2, coord.cex = 1.1,
+radialvis3d <- function(data, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, coord.labels = colnames(data), coord.font = 2, coord.cex = 1.1,
     class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, ...) {
 
     if (is.null(cl)) {
@@ -172,8 +173,14 @@ radialvis3d <- function(data, cl = NULL, color = NULL, axis = FALSE, coord.label
     }
     anchors <- anchors_sphere(ncol(data))
     class <- levels(cl)
-    if (is.null(color)) {
+    
+    if (is.null(color)){
+      if (color == TRUE) {
+        color <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+      }
+      if (color == FALSE) {
         color <- rainbow(length(class))
+      }
     }
 
     if (length(color) < length(class)) {
@@ -189,7 +196,7 @@ radialvis3d <- function(data, cl = NULL, color = NULL, axis = FALSE, coord.label
 
     max_distance <- max(apply(data_trans, MARGIN = 1, FUN = function(x) sqrt(sum(x^2))))
 
-    radius <- 1.1 * max_distance
+    radius <- 1.05 * max_distance
 
     # Create rgl plot
     rgl.open()
