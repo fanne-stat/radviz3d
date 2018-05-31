@@ -17,8 +17,8 @@ anchors_sphere <- function(p) {
         anchor <- matrix(nrow = p, ncol = 3)
         for (i in 1:p) {
             anchor[i, 3] <- (2 * i - 1)/p - 1
-            anchor[i, 1] <- sqrt(1 - anchor[i, 3]^2) * cos(2 * pi * i * phi)
-            anchor[i, 2] <- sqrt(1 - anchor[i, 3]^2) * sin(2 * pi * i * phi)
+            anchor[i, 1] <- sqrt(1 - anchor[i, 3]^2) * cos(2 * pi * i * phi^{-1})
+            anchor[i, 2] <- sqrt(1 - anchor[i, 3]^2) * sin(2 * pi * i * phi^{-1})
         }
         return(anchor)
     }
