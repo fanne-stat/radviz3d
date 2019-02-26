@@ -161,7 +161,8 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 #'
 #' @param data The dataset to visualize. Each row is an observation.
 #' @param cl The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}. If specified, different classes would be visualized with different colors.
-#' @param mrp Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.
+#' @param domrp Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.
+#' @param doGrans Logical. If true, Gtrans is applied to the origianl dataset. @seealso \code{\link{Gtrans}}.
 #' @param color The colors for different classes. If not specified, \code{rainbow} is used.
 #' @param colorblind Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.
 #' @param axis Logical.If true, Cartesian axes would be plotted.
@@ -179,7 +180,7 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], mrp = T)
 #' @export
-radialvis3d <- function(data, domrp = T, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+radialvis3d <- function(data, domrp = T, doGtrans = F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
     class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, ...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
@@ -206,6 +207,9 @@ radialvis3d <- function(data, domrp = T, cl = NULL, color = NULL, colorblind = F
     res <- list()
     
     # browser()
+    if (doGtrans){
+      data <- Gtrans(data)
+    }
 
     if (domrp){
       if (length(levels(cl)) <= 1){
@@ -245,7 +249,7 @@ radialvis3d <- function(data, domrp = T, cl = NULL, color = NULL, colorblind = F
     # add labels for coordinates
     if (with.coord.labels){
       if (is.null(coord.labels)){
-        coord.labels <- ncol(data)
+        coord.labels <- colnames(data)
       }
       text3d(1.1 * radius * anchors, texts = coord.labels)
     }
