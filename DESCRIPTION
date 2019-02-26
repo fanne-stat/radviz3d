@@ -1,22 +1,21 @@
 Package: radviz3d
 Title: A package for 3D radial visualization
-Version: 1.0
-Authors@R: c(person("Ranjan", "Maitra", role = "aut",
-                    email = "maitra@iastate.edu"),
-             person("Yifan", "Zhu", role = c("cre", "aut"),
+Version: 2.0
+Authors@R: c(person("Yifan", "Zhu", role = c("cre", "aut"),
                     email = "yifanzhu@iastate.edu"),
              person("Fan", "Dai", role = "aut",
                     email = "fd43@iastate.edu"),
+             person("Ranjan", "Maitra", role = "aut",
+                    email = "maitra@iastate.edu"),
              person("Niraj", "Kunwar", role = "aut",
                     email ="nkunwar@iastate.edu"),
              person("Gani", "Agadilov", role = "aut",
                     email = "agadilov@iastate.edu"))
 Description: It can be used to visualize the data in 3D space.
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.4.2), EnvStats (>= 2.3.0)
 License: GPL (>= 2)
 Encoding: UTF-8
-LazyData: yes
-Imports:rgl,
-        gtools,
-        MixSim
+LazyData: true
+Imports:
+        rgl
 RoxygenNote: 6.0.1

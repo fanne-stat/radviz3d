@@ -4,10 +4,12 @@
 \alias{radialvis3d}
 \title{3D Radial Visualization function}
 \usage{
-radialvis3d(data, cl = NULL, color = NULL, colorblind = FALSE,
-  axis = FALSE, coord.labels = colnames(data), coord.font = 2,
-  coord.cex = 1.1, class.labels = levels(factor(cl)),
-  class.labels.locations = NULL, opt.anchor.order = FALSE, ...)
+
+radialvis3d(data, domrp = T, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE,
+  pradius = 0.01, with.coord.labels = T, coord.labels = NULL,
+  coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+  class.labels = levels(factor(cl)), class.labels.locations = NULL,
+  opt.anchor.order = FALSE, ...)
 }
 \arguments{
 \item{data}{The dataset to visualize. Each row is an observation.}
@@ -20,21 +22,34 @@ radialvis3d(data, cl = NULL, color = NULL, colorblind = FALSE,
 
 \item{axis}{Logical.If true, Cartesian axes would be plotted.}
 
-\item{coord.labels}{The labels for components of the dataset.}
+\item{pradius}{The radius of the data point in RadViz3D. The default value is 0.01.}
+
+\item{with.coord.labels}{Logical. If true, labels of coordinates will be added to the visualization.}
+
+\item{coord.labels}{The labels for components of the dataset. When \code{domrp = TRUE}, the coord.labels will be changed to "Xi" representing the the ith direction obtained with MRP.}
 
 \item{coord.font}{The font for labels of components.}
 
 \item{coord.cex}{The size of the labels of components.}
+
+\item{with.class.labels}{Logical. If true, class labels will be added to the visualization.}
 
 \item{class.labels}{The labels for different classes in the dataset.}
 
 \item{class.labels.locations}{Locations to put labels for each class. If not specified, an optimal location for each class would be calculated.}
 
 \item{opt.anchor.order}{Logical. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.}
+
+\item{mrp}{Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.}
+}
+\value{
+A list with the elements
+\item{mrp.res}{The result of MRP is the argument \code{mrp = TRUE}. See also \code{\link{mrp}}.}
+
 }
 \description{
 3D Radial Visualization function
 }
 \examples{
-radialvis3d(data = iris[,-5], cl = iris[,5], opt.anchor.order = TRUE)
+radialvis3d(data = iris[,-5], cl = iris[,5], mrp = T)
 }

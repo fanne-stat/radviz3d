@@ -161,22 +161,26 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 #'
 #' @param data The dataset to visualize. Each row is an observation.
 #' @param cl The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}. If specified, different classes would be visualized with different colors.
+#' @param mrp Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.
 #' @param color The colors for different classes. If not specified, \code{rainbow} is used.
 #' @param colorblind Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.
 #' @param axis Logical.If true, Cartesian axes would be plotted.
-#' @param coord.labels The labels for components of the dataset.
+#' @param pradius The radius of the data point in RadViz3D. The default value is 0.01.
+#' @param with.coord.labels Logical. If true, labels of coordinates will be added to the visualization.
+#' @param coord.labels The labels for components of the dataset. When \code{domrp = TRUE}, the coord.labels will be changed to "Xi" representing the the ith direction obtained with MRP.
 #' @param coord.font The font for labels of components.
 #' @param coord.cex The size of the labels of components.
+#' @param with.class.labels Logical. If true, class labels will be added to the visualization.
 #' @param class.labels The labels for different classes in the dataset.
 #' @param class.labels.locations Locations to put labels for each class. If not specified, an optimal location for each class would be calculated.
 #' @param opt.anchor.order Logical. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.
+#' @return A list with the elements
+#' \item{mrp.res}{The result of MRP is the argument \code{mrp = TRUE}. See also \code{\link{mrp}}.}
 #' @examples
-#' radialvis3d(data = iris[,-5], cl = iris[,5], opt.anchor.order = TRUE)
+#' radialvis3d(data = iris[,-5], cl = iris[,5], mrp = T)
 #' @export
-radialvis3d <- function(data, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, 
-    coord.labels = colnames(data), coord.font = 2, coord.cex = 1.1, class.labels = levels(factor(cl)), 
-    class.labels.locations = NULL, opt.anchor.order = FALSE, ...) {
-    
+radialvis3d <- function(data, domrp = T, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+    class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, ...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
     } else {
@@ -196,8 +200,23 @@ radialvis3d <- function(data, cl = NULL, color = NULL, colorblind = FALSE, axis 
     }
     
     if (length(color) < length(class)) {
-        stop("Not enough colors supplied")
+        stop("Not enough colors supplied\n")
     }
+    
+    res <- list()
+    
+    # browser()
+
+    if (domrp){
+      if (length(levels(cl)) <= 1){
+        stop("Cannot do MRP with no class information or only one class\n")
+      }
+      mrp_res <- mrp(data = data, cl = cl, ...)
+      res$mrp.res <- mrp_res
+      data <- mrp_res$projected_df
+      coord.labels <- colnames(data)
+    }
+    
     # optimal order of anchor points
     idx.opt <- 1:ncol(data)
     if ((length(class) > 1) & opt.anchor.order) {
@@ -213,7 +232,7 @@ radialvis3d <- function(data, cl = NULL, color = NULL, colorblind = FALSE, axis 
     # Create rgl plot
     rgl.open()
     for (i in 1:length(class)) {
-        rgl.points(data_trans[cl == class[i], ], color = color[i])
+        rgl.spheres(data_trans[cl == class[i], ], r = pradius, color = color[i])
     }
     for (p in 1:ncol(data)) {
         rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40")
@@ -221,8 +240,17 @@ radialvis3d <- function(data, cl = NULL, color = NULL, colorblind = FALSE, axis 
     rgl.bg(color = "white", alpha = 0.01)
     rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = 0.02)
     rgl.points(radius * anchors, color = "black")
-    text3d(1.1 * radius * anchors, texts = coord.labels)
+
     
+    # add labels for coordinates
+    if (with.coord.labels){
+      if (is.null(coord.labels)){
+        coord.labels <- ncol(data)
+      }
+      text3d(1.1 * radius * anchors, texts = coord.labels)
+    }
+    
+
     # If axis should be plotted
     if (axis == TRUE) {
         # Add axes
@@ -232,14 +260,17 @@ radialvis3d <- function(data, cl = NULL, color = NULL, colorblind = FALSE, axis 
     }
     
     # add labels for classes
+
     if (length(levels(cl)) > 1) {
+      if (with.class.labels){
         if (is.null(class.labels.locations)) {
             ll <- separated.class.points(x = data_trans, cl = as.numeric(factor(cl)))
-            text3d(ll[[2]] + c(-0.01, -0.01, -0.01), color = color[ll[[1]]], texts = class.labels[ll[[1]]], 
-                ...)
-        } else text3d(class.labels.locations, color = color[ll[[1]]], texts = class.labels[ll[[1]]], 
-            ...)
-    }
+
+            text3d(ll[[2]] + c(-0.01, -0.01, -0.01), color = color[ll[[1]]], texts = class.labels[ll[[1]]], ...)
+        } else text3d(class.labels.locations, color = color[ll[[1]]], texts = class.labels[ll[[1]]], ...)
+    }}
+
     view3d(theta = 60, phi = 60)
+    return(res)
 }
 
