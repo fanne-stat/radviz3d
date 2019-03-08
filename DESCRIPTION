@@ -12,7 +12,7 @@ Authors@R: c(person("Yifan", "Zhu", role = c("cre", "aut"),
              person("Gani", "Agadilov", role = "aut",
                     email = "agadilov@iastate.edu"))
 Description: It can be used to visualize the data in 3D space.
-Depends: R (>= 3.4.2), EnvStats (>= 2.3.0)
+Depends: R (>= 3.3.0), EnvStats (>= 2.3.0)
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
