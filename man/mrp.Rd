@@ -4,7 +4,7 @@
 \alias{mrp}
 \title{Max-Ratio Projection function}
 \usage{
-mrp(data, cl, npc = 4)
+mrp(data, cl, npc = 4, ...)
 }
 \arguments{
 \item{data}{The dataset to apply MRP. Each row is an observation.}

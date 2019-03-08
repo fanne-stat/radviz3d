@@ -1,6 +1,6 @@
 Package: radviz3d
 Title: A package for 3D radial visualization
-Version: 2.0
+Version: 2.1
 Authors@R: c(person("Yifan", "Zhu", role = c("cre", "aut"),
                     email = "yifanzhu@iastate.edu"),
              person("Fan", "Dai", role = "aut",

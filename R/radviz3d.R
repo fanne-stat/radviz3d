@@ -175,10 +175,11 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 #' @param class.labels The labels for different classes in the dataset.
 #' @param class.labels.locations Locations to put labels for each class. If not specified, an optimal location for each class would be calculated.
 #' @param opt.anchor.order Logical. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.
+#' @param ... Some other parameters from \link{mrp} and \link{Gtrans}.
 #' @return A list with the elements
-#' \item{mrp.res}{The result of MRP is the argument \code{mrp = TRUE}. See also \code{\link{mrp}}.}
+#' \item{mrp.res}{The result of MRP is the argument \code{domrp = TRUE}. See also \code{\link{mrp}}.}
 #' @examples
-#' radialvis3d(data = iris[,-5], cl = iris[,5], mrp = T)
+#' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 #' @export
 radialvis3d <- function(data, domrp = T, doGtrans = F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
     class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, ...) {
@@ -187,7 +188,7 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, cl = NULL, color = NULL, 
     } else {
         cl <- as.factor(cl)
     }
-    anchors <- anchors_sphere(ncol(data))
+   
     class <- levels(cl)
     
     if (is.null(color)) {
@@ -208,7 +209,7 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, cl = NULL, color = NULL, 
     
     # browser()
     if (doGtrans){
-      data <- Gtrans(data)
+      data <- Gtrans(data, cl = cl, ...)
     }
 
     if (domrp){
@@ -218,8 +219,10 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, cl = NULL, color = NULL, 
       mrp_res <- mrp(data = data, cl = cl, ...)
       res$mrp.res <- mrp_res
       data <- mrp_res$projected_df
-      coord.labels <- colnames(data)
+      coord.labels <- as.expression(sapply(1:ncol(data), function(x) bquote(italic(M[.(x)]))) )
     }
+    
+    anchors <- anchors_sphere(ncol(data))
     
     # optimal order of anchor points
     idx.opt <- 1:ncol(data)

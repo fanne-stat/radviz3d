@@ -7,7 +7,7 @@
 #' \item{projected_df}{The projected data with selected number of max-ratio directions.}
 #' \item{pccumvar}{The cummulative variance explained by the max-ratio principal components.}
 #' @export
-mrp <- function(data,cl, npc = 4){
+mrp <- function(data,cl, npc = 4, ...){
   n <- nrow(data)
   p <- ncol(data)
   m <- nlevels(cl)
@@ -23,7 +23,7 @@ mrp <- function(data,cl, npc = 4){
     g.dat.c <- apply(g.dat,2,function(x) x-mean(x))
     
     if(dim(g.dat.c)[1] > p) rotation <- rotation + eigen(cov(g.dat))$vectors
-    else rotation <- rotation + svd(g.dat)$u[,1:d]
+    else rotation <- rotation + svd(t(g.dat))$u[,1:d]
   }
   
   df.svd <- svd(rotation)
@@ -60,6 +60,7 @@ mrp <- function(data,cl, npc = 4){
   dat.rotation <- sweep(rotation1, MARGIN = 2, STATS = sqrt(colSums(rotation1^2)), FUN = "/")
   dat.red <- as.matrix(dat) %*% dat.rotation
   df1 <- data.frame(dat.red)
+  colnames(df1) <- paste0("M[", 1:length(df1), "]")
   
   return(list(projected_df = df1, pccumvar = pccumvar))
 }

@@ -4,15 +4,17 @@
 \alias{radialvis3d}
 \title{3D Radial Visualization function}
 \usage{
-
-radialvis3d(data, domrp = T, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE,
-  pradius = 0.01, with.coord.labels = T, coord.labels = NULL,
-  coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+radialvis3d(data, domrp = T, doGtrans = F, cl = NULL, color = NULL,
+  colorblind = FALSE, axis = FALSE, pradius = 0.01,
+  with.coord.labels = T, coord.labels = NULL, coord.font = 2,
+  coord.cex = 1.1, with.class.labels = T,
   class.labels = levels(factor(cl)), class.labels.locations = NULL,
   opt.anchor.order = FALSE, ...)
 }
 \arguments{
 \item{data}{The dataset to visualize. Each row is an observation.}
+
+\item{domrp}{Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.}
 
 \item{cl}{The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}. If specified, different classes would be visualized with different colors.}
 
@@ -40,16 +42,17 @@ radialvis3d(data, domrp = T, cl = NULL, color = NULL, colorblind = FALSE, axis =
 
 \item{opt.anchor.order}{Logical. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.}
 
-\item{mrp}{Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.}
+\item{...}{Some other parameters from \link{mrp} and \link{Gtrans}.}
+
+\item{doGrans}{Logical. If true, Gtrans is applied to the origianl dataset. @seealso \code{\link{Gtrans}}.}
 }
 \value{
 A list with the elements
-\item{mrp.res}{The result of MRP is the argument \code{mrp = TRUE}. See also \code{\link{mrp}}.}
-
+\item{mrp.res}{The result of MRP is the argument \code{domrp = TRUE}. See also \code{\link{mrp}}.}
 }
 \description{
 3D Radial Visualization function
 }
 \examples{
-radialvis3d(data = iris[,-5], cl = iris[,5], mrp = T)
+radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 }
