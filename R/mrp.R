@@ -22,7 +22,7 @@ mrp <- function(data,cl, npc = 4, ...){
     g.dat <- df[df$class == i,-(p+1)]
     g.dat.c <- apply(g.dat,2,function(x) x-mean(x))
     
-    if(dim(g.dat.c)[1] > p) rotation <- rotation + eigen(cov(g.dat))$vectors
+    if(d > p) rotation <- rotation + eigen(cov(g.dat))$vectors
     else rotation <- rotation + svd(t(g.dat))$u[,1:d]
   }
   

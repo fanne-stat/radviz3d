@@ -4,8 +4,8 @@
 \alias{radialvis3d}
 \title{3D Radial Visualization function}
 \usage{
-radialvis3d(data, domrp = T, doGtrans = F, cl = NULL, color = NULL,
-  colorblind = FALSE, axis = FALSE, pradius = 0.01,
+radialvis3d(data, domrp = T, doGtrans = F, sqrt_scale = F, cl = NULL,
+  color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01,
   with.coord.labels = T, coord.labels = NULL, coord.font = 2,
   coord.cex = 1.1, with.class.labels = T,
   class.labels = levels(factor(cl)), class.labels.locations = NULL,
@@ -15,6 +15,8 @@ radialvis3d(data, domrp = T, doGtrans = F, cl = NULL, color = NULL,
 \item{data}{The dataset to visualize. Each row is an observation.}
 
 \item{domrp}{Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.}
+
+\item{sqrt_scale}{Logical. If true, the distance of the points to be visualization will be augmented to squre root of the orginal distance to make points further away from the origin.}
 
 \item{cl}{The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}. If specified, different classes would be visualized with different colors.}
 

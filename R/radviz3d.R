@@ -156,6 +156,10 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 }
 
 
+sqrt_scale <- function(x){
+  x/sqrt(sum(x^2)) * sqrt(sqrt(sum(x^2)))
+}
+
 
 #' 3D Radial Visualization function
 #'
@@ -163,6 +167,7 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 #' @param cl The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}. If specified, different classes would be visualized with different colors.
 #' @param domrp Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.
 #' @param doGrans Logical. If true, Gtrans is applied to the origianl dataset. @seealso \code{\link{Gtrans}}.
+#' @param sqrt_scale Logical. If true, the distance of the points to be visualization will be augmented to squre root of the orginal distance to make points further away from the origin.
 #' @param color The colors for different classes. If not specified, \code{rainbow} is used.
 #' @param colorblind Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.
 #' @param axis Logical.If true, Cartesian axes would be plotted.
@@ -181,7 +186,7 @@ optimal_3d_anchor_order <- function(x, cl, proj.mat) {
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 #' @export
-radialvis3d <- function(data, domrp = T, doGtrans = F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
     class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, ...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
@@ -231,6 +236,9 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, cl = NULL, color = NULL, 
     }
     
     data_trans <- radial_tranform(data[, idx.opt], anchors)
+    
+    # sqrrt of each coordiantes
+    if (sqrt_scale) data_trans <- t(apply(data_trans, 1, sqrt_scale))
     
     max_distance <- max(apply(data_trans, MARGIN = 1, FUN = function(x) sqrt(sum(x^2))))
     
