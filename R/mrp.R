@@ -55,7 +55,6 @@ mrp <- function(data,cl, npc = 4, ...){
     stop("Cannot get more max-ratio directions than ", length(r$d))
   }
   w <- r$v[,1:npc]
-  #zip.rotation <- SST.sqrt%*%w
   rotation1 <- SST.sqrtinv%*%w
   dat.rotation <- sweep(rotation1, MARGIN = 2, STATS = sqrt(colSums(rotation1^2)), FUN = "/")
   dat.red <- as.matrix(dat) %*% dat.rotation
@@ -65,4 +64,3 @@ mrp <- function(data,cl, npc = 4, ...){
   return(list(projected_df = df1, pccumvar = pccumvar))
 }
 
-# example df.red = mrp(iris[,-5],iris[,5])

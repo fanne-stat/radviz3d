@@ -224,7 +224,10 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
       mrp_res <- mrp(data = data, cl = cl, ...)
       res$mrp.res <- mrp_res
       data <- mrp_res$projected_df
-      coord.labels <- as.expression(sapply(1:ncol(data), function(x) bquote(italic(M[.(x)]))) )
+      coord.labels <- NULL
+      for (i in colnames(data)){
+        coord.labels <- c(coord.labels, parse(text = paste0("italic(", i, ")")))
+      }
     }
     
     anchors <- anchors_sphere(ncol(data))
@@ -246,13 +249,13 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     
     # Create rgl plot
     rgl.open()
+    rgl.bg(color = "white", alpha = 0.01)
     for (i in 1:length(class)) {
         rgl.spheres(data_trans[cl == class[i], ], r = pradius, color = color[i])
     }
     for (p in 1:ncol(data)) {
         rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40")
     }
-    rgl.bg(color = "white", alpha = 0.01)
     rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = 0.02)
     rgl.points(radius * anchors, color = "black")
 
@@ -262,7 +265,7 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
       if (is.null(coord.labels)){
         coord.labels <- colnames(data)
       }
-      text3d(1.1 * radius * anchors, texts = coord.labels)
+      text3d(1.1 * radius * anchors, texts = coord.labels, font = coord.font , cex = coord.cex)
     }
     
 
@@ -286,6 +289,6 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     }}
 
     view3d(theta = 60, phi = 60)
-    return(res)
+    # return(res)
 }
 
