@@ -7,11 +7,19 @@
 #' \item{projected_df}{The projected data with selected number of max-ratio directions.}
 #' \item{pccumvar}{The cummulative variance explained by the max-ratio principal components.}
 #' @export
-mrp <- function(data,cl, npc = 4, ...){
+mrp <- function(data, cl, npc = 4, ...){
   n <- nrow(data)
   p <- ncol(data)
   m <- nlevels(cl)
   d <- min(p, min(summary(cl)))
+
+  if (p < npc) {
+    stop(paste0("Asking for ", npc, " directions, but only ", p, " dimensions."))
+  }
+
+  if (d < npc) {
+    stop(paste0("Asking for ", npc, " directions, but minimum of ", d, " observation(s) in a cluster."))
+  }
   
   class <- as.factor(as.numeric(cl))
   df <- data.frame(data,class)

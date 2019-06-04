@@ -28,11 +28,15 @@ pmf_hat <- function(data){
 gdtrans <- function(mapped_data){
   # generalized distributional transformation
   transformed_data <- array(dim = dim(mapped_data))
+  n <- dim(mapped_data)[1]
   Fhat_mapped_data <- Fhat(mapped_data)
   pmf_hat_mapped_data <- pmf_hat(mapped_data)
   V <- matrix(runif(n = nrow(mapped_data)*ncol(mapped_data)), ncol = ncol(mapped_data)) 
   for(j in 1:ncol(mapped_data)){
-    transformed_data[,j] <- Fhat_mapped_data[[j]](mapped_data[,j]) - pmf_hat_mapped_data[[j]](mapped_data[,j]) + V[,j] * pmf_hat_mapped_data[[j]](mapped_data[,j])
+    sdata <- sort(mapped_data[,j])
+    pmf <- tabulate(match(sdata, unique(sdata))) / n
+    sindex <- match(mapped_data[,j], unique(sdata))
+    transformed_data[,j] <- Fhat_mapped_data[[j]](mapped_data[,j]) - pmf[sindex] + V[,j] * pmf[sindex]
   }
   return(transformed_data)
 }
