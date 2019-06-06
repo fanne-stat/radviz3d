@@ -191,6 +191,7 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     if (is.null(cl)) {
         cl <- as.factor(1)
     } else {
+	cl <- droplevels(cl)
         cl <- as.factor(cl)
     }
    
