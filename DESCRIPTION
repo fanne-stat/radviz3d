@@ -12,10 +12,10 @@ Authors@R: c(person("Yifan", "Zhu", role = c("cre", "aut"),
              person("Gani", "Agadilov", role = "aut",
                     email = "agadilov@iastate.edu"))
 Description: It can be used to visualize the data in 3D space.
-Depends: R (>= 3.3.0)
+Depends: R (>= 3.3.0), rgl (>= 0.100.19)
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 Imports:
-        rgl
+        rgl (>= 0.100.19)
 RoxygenNote: 6.0.1
