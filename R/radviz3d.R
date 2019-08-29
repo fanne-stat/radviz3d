@@ -166,7 +166,7 @@ sqrt_scale <- function(x){
 #' @param data The dataset to visualize. Each row is an observation.
 #' @param cl The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}. If specified, different classes would be visualized with different colors.
 #' @param domrp Logical. If true, MRP is applied to the origianl dataset. The default number of PCs used is \code{npc = 4}.
-#' @param doGrans Logical. If true, Gtrans is applied to the origianl dataset. @seealso \code{\link{Gtrans}}.
+#' @param doGtrans Logical. If true, Gtrans is applied to the origianl dataset. @seealso \code{\link{Gtrans}}.
 #' @param sqrt_scale Logical. If true, the distance of the points to be visualization will be augmented to squre root of the orginal distance to make points further away from the origin.
 #' @param color The colors for different classes. If not specified, \code{rainbow} is used.
 #' @param colorblind Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.
@@ -181,13 +181,15 @@ sqrt_scale <- function(x){
 #' @param class.labels.locations Locations to put labels for each class. If not specified, an optimal location for each class would be calculated.
 #' @param opt.anchor.order Logical. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.
 #' @param ... Some other parameters from \link{mrp} and \link{Gtrans}.
+#' @param alpha The alpha value that controls the transparency of the sphere in 3d visulization
+#' @param lwd The line width in the visualization
 #' @return A list with the elements
 #' \item{mrp.res}{The result of MRP is the argument \code{domrp = TRUE}. See also \code{\link{mrp}}.}
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 #' @export
 radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
-    class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, ...) {
+    class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, ...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
     } else {
@@ -255,9 +257,9 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
         rgl.spheres(data_trans[cl == class[i], ], r = pradius, color = color[i])
     }
     for (p in 1:ncol(data)) {
-        rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40")
+        rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40", lwd = lwd)
     }
-    rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = 0.02)
+    rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = alpha)
     rgl.points(radius * anchors, color = "black")
 
     
