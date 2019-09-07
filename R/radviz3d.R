@@ -188,7 +188,7 @@ sqrt_scale <- function(x){
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 #' @export
-radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.02, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
     class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, ...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
@@ -247,8 +247,9 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     if (sqrt_scale) data_trans <- t(apply(data_trans, 1, sqrt_scale))
     
     max_distance <- max(apply(data_trans, MARGIN = 1, FUN = function(x) sqrt(sum(x^2))))
+    data_trans <- data_trans/max_distance
     
-    radius <- 1.05 * max_distance
+    radius <- 1.05
     
     # Create rgl plot
     rgl.open()

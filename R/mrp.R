@@ -3,11 +3,12 @@
 #' @param data The dataset to apply MRP. Each row is an observation.
 #' @param cl The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}.
 #' @param npc The number of max-ratio directions to be used in projecting the original data to the projected data.
+#' @param message Logical. Wheather to show the accumulative variance explained by the projection directions or not.
 #' @return A list with the elements
 #' \item{projected_df}{The projected data with selected number of max-ratio directions.}
 #' \item{pccumvar}{The cummulative variance explained by the max-ratio principal components.}
 #' @export
-mrp <- function(data, cl, npc = 4, ...){
+mrp <- function(data, cl, npc = 4, message = T, ...){
   n <- nrow(data)
   p <- ncol(data)
   m <- nlevels(cl)
@@ -57,8 +58,11 @@ mrp <- function(data, cl, npc = 4, ...){
   W <- (W+t(W))/2
   r <- svd(W)
   
+  
   pccumvar <- cumsum((r$d))/sum((r$d))
-  cat("cumulative variance explained:", pccumvar, "\n")
+  if (message){
+    cat("cumulative variance explained:", pccumvar, "\n")
+  }
   if (npc > length(r$d)){
     stop("Cannot get more max-ratio directions than ", length(r$d))
   }

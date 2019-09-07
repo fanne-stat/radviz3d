@@ -5,7 +5,7 @@
 \title{3D Radial Visualization function}
 \usage{
 radialvis3d(data, domrp = T, doGtrans = F, sqrt_scale = F, cl = NULL,
-  color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.01,
+  color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.02,
   with.coord.labels = T, coord.labels = NULL, coord.font = 2,
   coord.cex = 1.1, with.class.labels = T,
   class.labels = levels(factor(cl)), class.labels.locations = NULL,
