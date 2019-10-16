@@ -1,7 +1,7 @@
 An Introduction to radviz3d for Visualizing High-dimensional Data with Continuous or Dicrete Features
 ================
 
-The radviz3d package is developed for 3D radial visualization of high-dimensional datasets. Our display engine is called RadViz3D and extends the classic 2D radial visualization and displays multivariate data on the 3D space by mapping every record to a point inside the unit sphere. RadViz3D obtains equi-spaced anchor points exactly for the five Platonic solids and approximately for the other cases via a Fibonacci grid. We also propose a Max-Ratio Projection (MRP) method that utilizes the group information in high dimensions to provide distinctive lower-dimensional projections that are then displayed using Radviz3D. Our methodology is extended to datasets with discrete and mixed features where a generalized distributional transform (GDT) is used in conjuction with copula models before applying MRP and RadViz3D visualization. This document gives a brief introduction to the functions included in radviz3d with several application examples.
+This package is developed for 3D radial visualization of high-dimensional datasets. Our display engine is called RadViz3D and extends the classic 2D radial visualization and displays multivariate data on the 3D space by mapping every record to a point inside the unit sphere. RadViz3D obtains equi-spaced anchor points exactly for the five Platonic solids and approximately for the other cases via a Fibonacci grid. We also propose a Max-Ratio Projection (MRP) method that utilizes the group information in high dimensions to provide distinctive lower-dimensional projections that are then displayed using Radviz3D. Our methodology is extended to datasets with discrete and mixed features where a generalized distributional transform (GDT) is used in conjuction with copula models before applying MRP and RadViz3D visualization. This document gives a brief introduction to the functions included in radviz3d with several application examples.
 
 Functions
 ---------
@@ -51,7 +51,7 @@ Datasets with discrete values can be transformed using options **doGtrans = T**.
 ``` r
 radialvis3d(data = script[,-117], cl = class, domrp = T, npc = 6, doGtrans = T, 
             lwd = 2, alpha = 0.05, pradius = 0.025, class.labels = levels(class))
-#> cumulative variance explained: 0.366352 0.6524249 0.8307818 0.935383 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#> cumulative variance explained: 0.3707163 0.6445103 0.8170576 0.9416525 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ```
 
 ![RadViz3D for Indic scripts data](man/figure/README/script.png)
