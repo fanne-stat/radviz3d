@@ -12,8 +12,13 @@ knitr::opts_chunk$set(
 )
 ```
 
+<<<<<<< HEAD
 The radviz3d package is developed for 3D radial visualization of
 high-dimensional datasets. Our display engine is called RadViz3D and extends the classic 2D radial visualization and displays multivariate data on the 3D space by mapping every record to a point inside the unit sphere. RadViz3D obtains equi-spaced anchor points
+=======
+The \texttt{radviz3d} package is developed for 3D radial visualization of
+high-dimensional datasets. Our display engine called RadViz3D extends the classic 2D radial visualization and displays multivariate data on the 3D space by mapping every record to a point inside the unit sphere. RadViz3D obtains equi-spaced anchor points
+>>>>>>> 61dbcfb9e566f4eaa109a901a49ab7fd7e8a5af9
 exactly for the five Platonic solids and approximately for the other cases via a  Fibonacci grid. We also propose a Max-Ratio Projection (MRP) method that utilizes the group information in high dimensions to provide distinctive lower-dimensional projections that are then displayed using Radviz3D. Our methodology is extended to
 datasets with discrete and mixed features where a generalized distributional
 transform (GDT) is used in conjuction with copula models before applying
