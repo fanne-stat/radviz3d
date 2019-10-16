@@ -1,5 +1,99 @@
 ---
+title: "An Introduction to radviz3d for Visualizing High-dimensional Data with Continuous or Dicrete Features"
 output: rmarkdown::github_document
 always_allow_html: yes
 ---
-THIS IS RADVIZ3D
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE, error = FALSE,
+  collapse = TRUE, comment = "#>", out.width = "100%",
+  fig.path = "man/figure/README"
+)
+```
+
+The radviz3d package is developed for 3D radial visualization of
+high-dimensional datasets. Our display engine is called RadViz3D and extends the classic 2D radial visualization and displays multivariate data on the 3D space by mapping every record to a point inside the unit sphere. RadViz3D obtains equi-spaced anchor points
+exactly for the five Platonic solids and approximately for the other cases via a  Fibonacci grid. We also propose a Max-Ratio Projection (MRP) method that utilizes the group information in high dimensions to provide distinctive lower-dimensional projections that are then displayed using Radviz3D. Our methodology is extended to
+datasets with discrete and mixed features where a generalized distributional
+transform (GDT) is used in conjuction with copula models before applying
+MRP and RadViz3D visualization. This document gives a brief introduction to the functions included in \texttt{radviz3d} with several application examples.
+
+## Functions
+
+radviz3d contains 3 functions:
+
+- `Gtrans`: Transform discrete or mixture of discrete and continuous datasets to continuous datasets with marginal normal(0,1).
+- `mrp`: Project high-dimensional datasets to lower dimention with max-ratio projection.
+- `radialvis3d`: Visualize appropriately tranformed datasets in the unit sphere.
+
+The main function `radialvis3d` is able to displays and classifies data points from the pre-known groups and provide visual clues to how the grouped data are separately from each other. 
+
+## Examples
+
+We illustrate the usage of `radialvis3d` on datasets with small (< 10) and large dimensions and with continuous or discrete features. The interactive 3D plot are produced from `rgl` and can be rotated manually to get better perspectives on `rgl`-supported devices.
+
+### Displaying original datasets
+
+For small datasets with continuous values, function `radialvis3d` can be applied directly with options **domrp = F** and **doGtrans = F**. The 3D plot below are displayed for the (Fisher's or Anderson's) iris data. The dataset contains 50 flowers measurements for 4 variables, sepal length, sepal width, petal length and petal width which are represented by the 4 anchor points in the plot. Flowers come from each of 3 species, Iris setosa, Iris versicolor, and Iris virginica. Speicies groups are shown in different colors and tagged with name labels.
+
+```{r}
+library(radviz3d)
+data("iris")
+radialvis3d(data = iris[, -5], cl = factor(iris$Species), domrp = F, doGtrans = F, 
+            lwd = 2, alpha = 0.05, pradius = 0.025, class.labels = levels(iris$Species))
+```
+```{r echo=FALSE}
+# rgl::rgl.viewpoint(zoom = 0.85)
+# rgl::rglwidget()
+```
+
+![RadViz3D for Iris data](man/figure/README/iris.png)
+
+### Display reduced datasets 
+
+For large datasets with continuous values, we use function `radialvis3d` with options **doGtrans = F** and **domrp = T** along with the number of principal components $k$ specified by **npc = k**. The plot for a wine dataset are shown below. The dataset (reference link: \url{https://rdrr.io/cran/rattle.data/man/wine.html}) contains 178 samples of three types of wines grown in a specific area of Italy. 13 chemical analyses were recorded for each sample.
+
+```{r include=FALSE}
+wine = read.table(file = "~/Desktop/wine.dat", sep=",",
+                  header=F, col.names = c("cultivar","Ahl","Malic","Ash", "Alk","Mgm",
+                                          "pnls","Flvds","Nonfp","Pthyns",
+                                          "Color","Hue","ODdil","Prol")) 
+wine$cultivar = as.factor(wine$cultivar)
+class = wine$cultivar
+class <- as.factor(class)
+sn <- as.matrix(wine[,-1])
+wine <- data.frame(sn,class)
+```
+
+```{r}
+radialvis3d(data = wine[, -14], cl = factor(wine[,14]), domrp = T, npc = 4, doGtrans = F, 
+            lwd = 2, alpha = 0.05, pradius = 0.025, class.labels = levels(wine[,14]))
+```
+```{r echo=FALSE}
+# rgl::rgl.viewpoint(zoom = 0.6)
+# rgl::rglwidget()
+```
+
+![RadViz3D for wine data](man/figure/README/wine.png)
+
+### Display transformed datasets 
+
+Datasets with discrete values can be transformed using options **doGtrans = T**. (Currently, GDT is not applicable to categorical variables). Here we present an example for an Indic scripts dataset (reference link: \url{https://sites.google.com/site/skmdobaidullah/dataset-code}) which is on 116 different features from handwritten scripts of 11 Indic languages. A subset of 5 languages is chosen from 4 regions, namely Bangla (from the east), Gurmukhi (north), Gujarati (west), and Kannada and Malayalam (languages from the neighboring southern states of Karnataka and Kerala) and a sixth language (Urdu, with a distinct Persian script). Some of the features contains discrete values so the dataset is essentially of mixed attributes. We apply `radialvis3d` with GDT and MRP (**npc = 6**) to display for distinctiveness of samples from each languages.
+
+```{r include=FALSE}
+load("~/Desktop/indic.rda") 
+```
+
+```{r}
+radialvis3d(data = script[,-117], cl = class, domrp = T, npc = 6, doGtrans = T, 
+            lwd = 2, alpha = 0.05, pradius = 0.025, class.labels = levels(class))
+```
+```{r echo=FALSE}
+# rgl::rgl.viewpoint(zoom = 0.4)
+# rgl::rglwidget()
+```
+
+![RadViz3D for Indic scripts data](man/figure/README/script.png)
+
+
