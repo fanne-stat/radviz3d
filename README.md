@@ -51,7 +51,7 @@ Datasets with discrete values can be transformed using options **doGtrans = T**.
 ``` r
 radialvis3d(data = script[,-117], cl = class, domrp = T, npc = 6, doGtrans = T, 
             lwd = 2, alpha = 0.05, pradius = 0.025, class.labels = levels(class))
-#> cumulative variance explained: 0.388088 0.6480012 0.8329395 0.942428 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#> cumulative variance explained: 0.366352 0.6524249 0.8307818 0.935383 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ```
 
 ![RadViz3D for Indic scripts data](man/figure/README/script.png)
