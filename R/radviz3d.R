@@ -243,10 +243,10 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     
     data_trans <- radial_tranform(data[, idx.opt], anchors)
     
-    # sqrrt of each coordiantes
+    # sqrt of each coordiantes
     if (sqrt_scale) data_trans <- t(apply(data_trans, 1, sqrt_scale))
     
-    max_distance <- max(apply(data_trans, MARGIN = 1, FUN = function(x) sqrt(sum(x^2))))
+    max_distance <- max(apply(data_trans, MARGIN = 1, FUN = function(x) sqrt(sum(x^2))), na.rm = T)
     data_trans <- data_trans/max_distance
     
     radius <- 1.05
