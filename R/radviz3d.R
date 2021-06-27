@@ -260,7 +260,7 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     for (p in 1:ncol(data)) {
         rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40", lwd = lwd)
     }
-    rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = alpha)
+    rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = alpha, depth_mask = FALSE)
     rgl.points(radius * anchors, color = "black")
 
     
