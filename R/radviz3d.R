@@ -170,7 +170,7 @@ sqrt_scale <- function(x){
 #' @param sqrt_scale Logical. If true, the distance of the points to be visualization will be augmented to squre root of the orginal distance to make points further away from the origin.
 #' @param color The colors for different classes. If not specified, \code{rainbow} is used.
 #' @param colorblind Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.
-#' @param axis Logical.If true, Cartesian axes would be plotted.
+#' @param axes Logical.If true, Cartesian axes would be plotted.
 #' @param pradius The radius of the data point in RadViz3D. The default value is 0.01.
 #' @param with.coord.labels Logical. If true, labels of coordinates will be added to the visualization.
 #' @param coord.labels The labels for components of the dataset. When \code{domrp = TRUE}, the coord.labels will be changed to "Xi" representing the the ith direction obtained with MRP.
@@ -180,16 +180,17 @@ sqrt_scale <- function(x){
 #' @param class.labels The labels for different classes in the dataset.
 #' @param class.labels.locations Locations to put labels for each class. If not specified, an optimal location for each class would be calculated.
 #' @param opt.anchor.order Logical. If true, the optimal order of anchor points corresponding to the components would be calculated. This is a very time consuming procedure. Not recommended if the number of components is larger then 6.
-#' @param ... Some other parameters from \link{mrp} and \link{Gtrans}.
+#' @param ... Some other parameters from \link{mrp} and \link{Gtrans} and rgl functions.
 #' @param alpha The alpha value that controls the transparency of the sphere in 3d visulization
 #' @param lwd The line width in the visualization
+#' @param axes.col Colors of the axes, if needed to be displayed
 #' @return A list with the elements
 #' \item{mrp.res}{The result of MRP is the argument \code{domrp = TRUE}. See also \code{\link{mrp}}.}
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 #' @export
-radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.02, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
-    class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, ...) {
+radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axes = FALSE, pradius = 0.02, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+    class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, axes.col = "black", ...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
     } else {
@@ -253,15 +254,15 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     
     # Create rgl plot
     rgl.open()
-    rgl.bg(color = "white", alpha = 0.01)
+    rgl.bg(color = "white", alpha = 0.01,...)
     for (i in 1:length(class)) {
-        rgl.spheres(data_trans[cl == class[i], ], r = pradius, color = color[i])
+        rgl.spheres(data_trans[cl == class[i], ], r = pradius, color = color[i],...)
     }
     for (p in 1:ncol(data)) {
-        rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40", lwd = lwd)
+        rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40", lwd = lwd,...)
     }
-    rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = alpha, depth_mask = FALSE)
-    rgl.points(radius * anchors, color = "black")
+    rgl.spheres(x = 0, y = 0, z = 0, r = radius, color = "grey", add = TRUE, alpha = alpha, depth_mask = FALSE,...)
+    rgl.points(radius * anchors, color = "black",...)
 
     
     # add labels for coordinates
@@ -269,16 +270,16 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
       if (is.null(coord.labels)){
         coord.labels <- colnames(data)
       }
-      text3d(1.1 * radius * anchors, texts = coord.labels, font = coord.font , cex = coord.cex)
+      text3d(1.1 * radius * anchors, texts = coord.labels, font = coord.font , cex = coord.cex,...)
     }
     
 
-    # If axis should be plotted
-    if (axis == TRUE) {
+    # If axes should be plotted
+    if (axes == TRUE) {
         # Add axes
-        rgl.lines(c(-1, 1), c(0, 0), c(0, 0), color = "black")
-        rgl.lines(c(0, 0), c(-1, 1), c(0, 0), color = "black")
-        rgl.lines(c(0, 0), c(0, 0), c(-1, 1), color = "black")
+        rgl.lines(c(-1, 1), c(0, 0), c(0, 0), color = axes.col,...)
+        rgl.lines(c(0, 0), c(-1, 1), c(0, 0), color = axes.col,...)
+        rgl.lines(c(0, 0), c(0, 0), c(-1, 1), color = axes.col,...)
     }
     
     # add labels for classes
