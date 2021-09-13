@@ -184,13 +184,14 @@ sqrt_scale <- function(x){
 #' @param alpha The alpha value that controls the transparency of the sphere in 3d visulization
 #' @param lwd The line width in the visualization
 #' @param axes.col Colors of the axes, if needed to be displayed
+#' @param ret.trans Logical parameter, returns the Radviz3D transformation if TRUE
 #' @return A list with the elements
 #' \item{mrp.res}{The result of MRP is the argument \code{domrp = TRUE}. See also \code{\link{mrp}}.}
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 #' @export
 radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axes = FALSE, pradius = 0.02, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
-    class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, axes.col = "black", ...) {
+    class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, axes.col = "black", ret.trans = FALSE,...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
     } else {
@@ -294,6 +295,8 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     }}
 
     view3d(theta = 60, phi = 60)
-    # return(res)
+    if (ret.trans)
+        data_trans
 }
 
+    
