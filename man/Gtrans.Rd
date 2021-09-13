@@ -4,8 +4,7 @@
 \alias{Gtrans}
 \title{G-trasformation function}
 \usage{
-Gtrans(data, cl = NULL, VariableSelection = FALSE, p_threshold = 0.05,
-  ...)
+Gtrans(data, cl = NULL, VariableSelection = FALSE, p_threshold = 0.05, ...)
 }
 \arguments{
 \item{data}{The dataset to be transforms. The dataset can be discretein all columns, continuous in all columns or a mixture of continuous columns and discrete columns.}

@@ -4,12 +4,31 @@
 \alias{radialvis3d}
 \title{3D Radial Visualization function}
 \usage{
-radialvis3d(data, domrp = T, doGtrans = F, sqrt_scale = F, cl = NULL,
-  color = NULL, colorblind = FALSE, axis = FALSE, pradius = 0.02,
-  with.coord.labels = T, coord.labels = NULL, coord.font = 2,
-  coord.cex = 1.1, with.class.labels = T,
-  class.labels = levels(factor(cl)), class.labels.locations = NULL,
-  opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, ...)
+radialvis3d(
+  data,
+  domrp = T,
+  doGtrans = F,
+  sqrt_scale = F,
+  cl = NULL,
+  color = NULL,
+  pch = 16,
+  colorblind = FALSE,
+  axes = FALSE,
+  pradius = 0.02,
+  with.coord.labels = T,
+  coord.labels = NULL,
+  coord.font = 2,
+  coord.cex = 1.1,
+  with.class.labels = T,
+  class.labels = levels(factor(cl)),
+  class.labels.locations = NULL,
+  opt.anchor.order = FALSE,
+  alpha = 0.02,
+  lwd = 1,
+  axes.col = "black",
+  ret.trans = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{The dataset to visualize. Each row is an observation.}
@@ -24,9 +43,11 @@ radialvis3d(data, domrp = T, doGtrans = F, sqrt_scale = F, cl = NULL,
 
 \item{color}{The colors for different classes. If not specified, \code{rainbow} is used.}
 
+\item{pch}{The point character to be used. It is an integer of a vector of integers of the same length of the nrow of the dataset. See \code{\link{points}} for a complete list of characters.}
+
 \item{colorblind}{Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.}
 
-\item{axis}{Logical.If true, Cartesian axes would be plotted.}
+\item{axes}{Logical.If true, Cartesian axes would be plotted.}
 
 \item{pradius}{The radius of the data point in RadViz3D. The default value is 0.01.}
 
@@ -50,7 +71,11 @@ radialvis3d(data, domrp = T, doGtrans = F, sqrt_scale = F, cl = NULL,
 
 \item{lwd}{The line width in the visualization}
 
-\item{...}{Some other parameters from \link{mrp} and \link{Gtrans}.}
+\item{axes.col}{Colors of the axes, if needed to be displayed}
+
+\item{ret.trans}{Logical parameter, returns the Radviz3D transformation if TRUE}
+
+\item{...}{Some other parameters from \link{mrp} and \link{Gtrans} and rgl functions.}
 }
 \value{
 A list with the elements

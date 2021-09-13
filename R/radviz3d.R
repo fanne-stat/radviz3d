@@ -169,6 +169,7 @@ sqrt_scale <- function(x){
 #' @param doGtrans Logical. If true, Gtrans is applied to the origianl dataset. @seealso \code{\link{Gtrans}}.
 #' @param sqrt_scale Logical. If true, the distance of the points to be visualization will be augmented to squre root of the orginal distance to make points further away from the origin.
 #' @param color The colors for different classes. If not specified, \code{rainbow} is used.
+#' @param pch The point character to be used. It is an integer of a vector of integers of the same length of the nrow of the dataset. See \code{\link{points}} for a complete list of characters.
 #' @param colorblind Logical.The colors for different classes.If true, poits are colorblind friendly.If false, \code{rainbow} is used.
 #' @param axes Logical.If true, Cartesian axes would be plotted.
 #' @param pradius The radius of the data point in RadViz3D. The default value is 0.01.
@@ -190,7 +191,7 @@ sqrt_scale <- function(x){
 #' @examples
 #' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
 #' @export
-radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, colorblind = FALSE, axes = FALSE, pradius = 0.02, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, pch = 16, colorblind = FALSE, axes = FALSE, pradius = 0.02, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
     class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, axes.col = "black", ret.trans = FALSE,...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
@@ -254,11 +255,13 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     radius <- 1.05
     
     # Create rgl plot
-    rgl.open()
-    rgl.bg(color = "white", alpha = 0.01,...)
-    for (i in 1:length(class)) {
-        rgl.spheres(data_trans[cl == class[i], ], r = pradius, color = color[i],...)
-    }
+    # rgl.open()
+
+    # for (i in 1:length(class)) {
+    #     pch3d(x = matrix(data_trans[cl == class[i], ], ncol = 3), radius = pradius, color = color[i],...)
+    # }
+    
+    pch3d(x = data_trans,y = NULL, z = NULL, radius = pradius, color = color[cl],pch,...)
     for (p in 1:ncol(data)) {
         rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40", lwd = lwd,...)
     }
