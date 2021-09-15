@@ -14,7 +14,7 @@ radialvis3d(
   pch = 16,
   colorblind = FALSE,
   axes = FALSE,
-  pradius = 0.02,
+  point.cex = 1,
   with.coord.labels = T,
   coord.labels = NULL,
   coord.font = 2,
@@ -49,7 +49,7 @@ radialvis3d(
 
 \item{axes}{Logical.If true, Cartesian axes would be plotted.}
 
-\item{pradius}{The radius of the data point in RadViz3D. The default value is 0.01.}
+\item{point.cex}{The size of the data point in RadViz3D. The default value is 1.}
 
 \item{with.coord.labels}{Logical. If true, labels of coordinates will be added to the visualization.}
 
