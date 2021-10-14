@@ -35,7 +35,7 @@ vignettes/*.pdf
 .Rproj.user
 
 # Output data
-*.Rda
+R/*.Rda
 *.pdf
 *.csv
 *.html
