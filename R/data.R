@@ -9,7 +9,7 @@
 #'      \item{others}{The contents of chemical components.} 
 #'  }
 #' 
-"ceramic"
+"celadon"
 
 #' Chemical compositions of wine
 #' 
