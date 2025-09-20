@@ -22,3 +22,5 @@ LazyData: true
 Imports: rgl (>= 0.100.19)
 Suggests: MixSim, gtools
 RoxygenNote: 7.1.1
+Author: Yifan Zhu [cre, aut], Fan Dai [aut], Ranjan Maitra [aut], Niraj Kunwar [aut], Gani Agadilov [aut]
+Maintainer: Yifan Zhu <yifanzhu@iastate.edu>
