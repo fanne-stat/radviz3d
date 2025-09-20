@@ -10,7 +10,7 @@ A data frame of 140 observations and 14 variables.
     \item{group}{The date.}
     \item{type}{weighted}
     \item{region}{Region of the US labelled by numbers.}
-    \item{other variables}{COVID-19 variants compositions.}
+    \item{B.1.1.194, B.1.1.7, B.1.351, B.1.525, B.1.526, B.1.621, B.1.628, B.1.637, Delta, Other*, P.1}{COVID-19 variants compositions.}
 }
 }
 \usage{

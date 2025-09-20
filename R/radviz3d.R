@@ -189,9 +189,9 @@ sqrt_scale <- function(x){
 #' @return A list with the elements
 #' \item{mrp.res}{The result of MRP is the argument \code{domrp = TRUE}. See also \code{\link{mrp}}.}
 #' @examples
-#' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
+#' radialvis3d(data = iris[,-5], cl = iris[,5], domrp = TRUE)
 #' @export
-radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, color = NULL, pch = 16, colorblind = FALSE, axes = FALSE, point.cex = 1, with.coord.labels = T, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = T,
+radialvis3d <- function(data, domrp = TRUE, doGtrans = FALSE, sqrt_scale=FALSE, cl = NULL, color = NULL, pch = 16, colorblind = FALSE, axes = FALSE, point.cex = 1, with.coord.labels = TRUE, coord.labels = NULL, coord.font = 2, coord.cex = 1.1, with.class.labels = TRUE,
     class.labels = levels(factor(cl)), class.labels.locations = NULL, opt.anchor.order = FALSE, alpha = 0.02, lwd = 1, axes.col = "black", ret.trans = FALSE,...) {
     if (is.null(cl)) {
         cl <- as.factor(1)
@@ -249,7 +249,7 @@ radialvis3d <- function(data, domrp = T, doGtrans = F, sqrt_scale=F, cl = NULL, 
     # sqrt of each coordiantes
     if (sqrt_scale) data_trans <- t(apply(data_trans, 1, sqrt_scale))
     
-    max_distance <- max(apply(data_trans, MARGIN = 1, FUN = function(x) sqrt(sum(x^2))), na.rm = T)
+    max_distance <- max(apply(data_trans, MARGIN = 1, FUN = function(x) sqrt(sum(x^2))), na.rm = TRUE)
     data_trans <- data_trans/max_distance
     
     radius <- 1.05

@@ -8,7 +8,7 @@
 #' \item{projected_df}{The projected data with selected number of max-ratio directions.}
 #' \item{pccumvar}{The cummulative variance explained by the max-ratio principal components.}
 #' @export
-mrp <- function(data, cl, nproj = 4, message = T, ...){
+mrp <- function(data, cl, nproj = 4, message = TRUE, ...){
   n <- nrow(data)
   p <- ncol(data)
   m <- nlevels(cl)

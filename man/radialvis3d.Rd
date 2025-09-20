@@ -6,20 +6,20 @@
 \usage{
 radialvis3d(
   data,
-  domrp = T,
-  doGtrans = F,
-  sqrt_scale = F,
+  domrp = TRUE,
+  doGtrans = FALSE,
+  sqrt_scale = FALSE,
   cl = NULL,
   color = NULL,
   pch = 16,
   colorblind = FALSE,
   axes = FALSE,
   point.cex = 1,
-  with.coord.labels = T,
+  with.coord.labels = TRUE,
   coord.labels = NULL,
   coord.font = 2,
   coord.cex = 1.1,
-  with.class.labels = T,
+  with.class.labels = TRUE,
   class.labels = levels(factor(cl)),
   class.labels.locations = NULL,
   opt.anchor.order = FALSE,
@@ -85,5 +85,5 @@ A list with the elements
 3D Radial Visualization function
 }
 \examples{
-radialvis3d(data = iris[,-5], cl = iris[,5], domrp = T)
+radialvis3d(data = iris[,-5], cl = iris[,5], domrp = TRUE)
 }

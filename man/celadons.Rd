@@ -9,7 +9,7 @@ A data frame with 19 variables and 88 observations.
  \describe{
      \item{mf}{Manufacturer of the celdon piece: FLQ for Jingdezhen and LG for Longquan}
      \item{era}{The manufacturing time and part of the celdon piece in "time-part" format. There are two different parts (body (b) and glaze (g)) and four times (Song Dynasty (S), Yuan Dynasty (Y), Ming Dynastty(M) and Qing Dynasty (QC)).}
-     \item{others}{The contents of chemical components.} 
+     \item{Al2O3, CaO, CuO, Fe2O3, K2O, MgO, MnO, Na2O, P2O5, PbO2, Rb2O, SiO2, SrO, TiO2, Y2O3, ZnO, ZrO2}{The contents of chemical components.}
  }
 }
 \usage{

@@ -8,7 +8,7 @@
 A data frame of 178 observations and 14 variables:
     \describe{
         \item{cultivar}{The cultivar where the wine is produced}
-        \item{other variables}{The content of chemical compositions of the wine}
+        \item{Ahl, Ash, Alk, Color, Flvds, Hue, Malic, Mg, Nonfp, ODdil, Phnls, Prol, Pthyns}{The content of chemical compositions of the wine}
     }
 }
 \usage{

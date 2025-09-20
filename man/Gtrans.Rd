@@ -14,6 +14,8 @@ Gtrans(data, cl = NULL, VariableSelection = FALSE, p_threshold = 0.05, ...)
 \item{VariableSelection}{Logical. If true, anova will be performed to each variable to see whether there is a difference among groups for that variable. The varaible associated with Bonferroni adjusted p-value larger than a threshold will be removed.}
 
 \item{p_threshold}{The threshold for adjusted p-value in variable selection when \code{VariableSelection = TRUE}.}
+
+\item{...}{Additional arguments passed to internal functions.}
 }
 \value{
 A transformed continuous dataset with the same copula as the input dataset and margianl normal(0,1).

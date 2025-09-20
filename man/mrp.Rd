@@ -4,16 +4,18 @@
 \alias{mrp}
 \title{Max-Ratio Projection function}
 \usage{
-mrp(data, cl, npc = 4, message = T, ...)
+mrp(data, cl, nproj = 4, message = TRUE, ...)
 }
 \arguments{
 \item{data}{The dataset to apply MRP. Each row is an observation.}
 
 \item{cl}{The class identification for each observation. The length of \code{cl} should be the same as the number of rows of \code{data}.}
 
-\item{npc}{The number of max-ratio directions to be used in projecting the original data to the projected data.}
+\item{nproj}{The number of max-ratio directions to be used in projecting the original data to the projected data.}
 
 \item{message}{Logical. Wheather to show the accumulative variance explained by the projection directions or not.}
+
+\item{...}{Additional arguments passed to internal functions.}
 }
 \value{
 A list with the elements

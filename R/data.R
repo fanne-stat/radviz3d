@@ -35,3 +35,23 @@
 #'}
 "sarscov2.us.variants"
 
+#' Simulated datasets for testing
+#'
+#' This is a list containing three simulated datasets, each with 500 observations
+#' and 5 classes, used for testing visualization methods.
+#'
+#' @format A list of 3 data frames, each with 500 observations and 6 variables:
+#' \describe{
+#'     \item{class}{Factor with 5 levels representing different classes}
+#'     \item{X1, X2, X3, X4, X5}{Numeric variables with simulated data}
+#' }
+"sim_data"
+
+#' Overlap matrices for simulated data
+#'
+#' This is a list containing three overlap matrices corresponding to the
+#' sim_data datasets, showing class separability.
+#'
+#' @format A list of 3 matrices, each 5x5, representing overlap between classes
+"overlap_mat_sim"
+
