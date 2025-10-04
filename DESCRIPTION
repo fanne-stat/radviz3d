@@ -1,5 +1,5 @@
 Package: radviz3d
-Title: A Package for 3D Radial Visualization
+Title: 3D Radial Visualization
 Version: 2.3.0
 Authors@R: c(person("Yifan", "Zhu", role = c("cre", "aut"),
                     email = "yifanzhu@iastate.edu"),
@@ -11,10 +11,11 @@ Authors@R: c(person("Yifan", "Zhu", role = c("cre", "aut"),
                     email = "nkunwar@iastate.edu"),
              person("Gani", "Agadilov", role = "aut",
                     email = "agadilov@iastate.edu"))
-Description: Provides functions for creating 3D radial visualizations of multivariate data.
+Description: Creating 3D radial visualizations of multivariate data.
     The package extends traditional radial coordinate visualization (RadViz) techniques
     to three-dimensional space, enabling enhanced exploration and analysis of
-    high-dimensional datasets through interactive 3D plots.
+    high-dimensional datasets through interactive 3D plots. Zhu, Dai & Maitra (2022)
+    <doi:10.1080/10618600.2021.2020129>.
 Depends: R (>= 3.5.0)
 License: GPL (>= 2)
 Encoding: UTF-8
