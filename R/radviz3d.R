@@ -263,10 +263,10 @@ radialvis3d <- function(data, domrp = TRUE, doGtrans = FALSE, sqrt_scale=FALSE, 
     
     pch3d(x = data_trans,y = NULL, z = NULL, cex = point.cex, color = color[cl],pch,...)
     for (p in 1:ncol(data)) {
-        rgl.lines(rbind(rep(0, 3), radius * anchors[p, ]), col = "gray40", lwd = lwd,...)
+        segments3d(rbind(rep(0, 3), radius * anchors[p, ]), color = "gray40", lwd = lwd,...)
     }
     rgl.spheres(x = 0, y = 0, z = 0, radius = radius, color = "grey", add = TRUE, alpha = alpha, depth_mask = FALSE,...)
-    rgl.points(radius * anchors, color = "black",...)
+    points3d(radius * anchors, color = "black",...)
 
     
     # add labels for coordinates
@@ -281,9 +281,9 @@ radialvis3d <- function(data, domrp = TRUE, doGtrans = FALSE, sqrt_scale=FALSE, 
     # If axes should be plotted
     if (axes == TRUE) {
         # Add axes
-        rgl.lines(c(-1, 1), c(0, 0), c(0, 0), color = axes.col,...)
-        rgl.lines(c(0, 0), c(-1, 1), c(0, 0), color = axes.col,...)
-        rgl.lines(c(0, 0), c(0, 0), c(-1, 1), color = axes.col,...)
+        segments3d(c(-1, 1), c(0, 0), c(0, 0), color = axes.col,...)
+        segments3d(c(0, 0), c(-1, 1), c(0, 0), color = axes.col,...)
+        segments3d(c(0, 0), c(0, 0), c(-1, 1), color = axes.col,...)
     }
     
     # add labels for classes
