@@ -1,15 +1,15 @@
 Package: radviz3d
 Title: 3D Radial Visualization
-Version: 2.3.0
+Version: 2.3.1
 Authors@R: c(person("Yifan", "Zhu", role = c("cre", "aut"),
-                    email = "yifanzhu@iastate.edu"),
-             person("Fan", "Dai", role = "aut",
+                    email = "fannechu@gmail.com"),
+             person("Fan", "Dai", role = c("aut", "ctb"),
                     email = "fd43@iastate.edu"),
-             person("Ranjan", "Maitra", role = "aut",
+             person("Ranjan", "Maitra", role = c("aut", "ctb"),
                     email = "maitra@iastate.edu"),
-             person("Niraj", "Kunwar", role = "aut",
+             person("Niraj", "Kunwar", role = c("aut", "ctb"),
                     email = "nkunwar@iastate.edu"),
-             person("Gani", "Agadilov", role = "aut",
+             person("Gani", "Agadilov", role = c("aut", "ctb"),
                     email = "agadilov@iastate.edu"))
 Description: Creating 3D radial visualizations of multivariate data.
     The package extends traditional radial coordinate visualization (RadViz) techniques
@@ -23,5 +23,5 @@ LazyData: true
 Imports: rgl (>= 0.100.19)
 Suggests: MixSim, gtools
 RoxygenNote: 7.1.1
-Author: Yifan Zhu [cre, aut], Fan Dai [aut], Ranjan Maitra [aut], Niraj Kunwar [aut], Gani Agadilov [aut]
-Maintainer: Yifan Zhu <yifanzhu@iastate.edu>
+Author: Yifan Zhu [cre, aut], Fan Dai [aut, ctb], Ranjan Maitra [aut, ctb], Niraj Kunwar [aut, ctb], Gani Agadilov [aut, ctb]
+Maintainer: Yifan Zhu <fannechu@gmail.com>
